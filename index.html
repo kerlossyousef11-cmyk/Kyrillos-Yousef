@@ -13,6 +13,12 @@
             --text-muted: #4b5563;
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Smooth scrolling setup */
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -26,6 +32,7 @@
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navigation */
@@ -57,18 +64,47 @@
             text-decoration: none;
             color: var(--text-muted);
             font-weight: 500;
-            transition: color 0.2s;
+            transition: var(--transition-smooth);
+            position: relative;
         }
 
         nav a:hover {
             color: var(--primary);
         }
 
-        /* Hero Section */
+        /* Hover underline effect for navigation */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition-smooth);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Keyframe for Hero Entrance */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section Animation */
         header {
             padding: 5rem 5% 4rem;
             text-align: center;
             background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .hero-content h1 {
@@ -91,17 +127,6 @@
             margin: 0 auto 1.5rem;
         }
 
-        .social-links a {
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            margin: 0 0.5rem;
-            transition: color 0.2s;
-        }
-
-        .social-links a:hover {
-            color: var(--primary);
-        }
-
         /* Main Container */
         main {
             max-width: 1000px;
@@ -110,7 +135,7 @@
         }
 
         section {
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
             scroll-margin-top: 5rem;
         }
 
@@ -119,6 +144,7 @@
             margin-bottom: 2rem;
             position: relative;
             padding-bottom: 0.5rem;
+            color: #0f172a;
         }
 
         h2::after {
@@ -143,6 +169,7 @@
         .timeline-item {
             position: relative;
             margin-bottom: 4rem;
+            transition: var(--transition-smooth);
         }
 
         .timeline-item::before {
@@ -156,6 +183,13 @@
             background: var(--primary);
             border: 3px solid #fff;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            transition: var(--transition-smooth);
+        }
+
+        /* Active micro-interaction when viewing timeline nodes */
+        .timeline-item:hover::before {
+            transform: scale(1.3);
+            background: var(--primary-dark);
         }
 
         .timeline-date {
@@ -193,6 +227,14 @@
             padding: 1.25rem;
             border: 1px solid #e2e8f0;
             box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+
+        /* Subtle container shift on hover */
+        .timeline-item:hover .progression-container {
+            transform: translateX(4px);
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .progression-title {
@@ -264,7 +306,105 @@
             margin-bottom: 0.25rem;
         }
 
-        /* Footer */
+        /* Grid Framework for Projects and Honors */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        /* Interactive Animated Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+        }
+
+        /* Lift and Drop-Shadow card animation on hover */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            border-color: #bfdbfe;
+        }
+
+        .card-body h3 {
+            font-size: 1.25rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            width: fit-content;
+        }
+
+        .badge-silver { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .badge-bronze { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+        .badge-project { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+
+        /* Evidence Links and Buttons */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid #bfdbfe;
+            transition: var(--transition-smooth);
+        }
+
+        /* Interactive Button Pop on hover */
+        .btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+
+        .btn-dark {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+        }
+
+        .btn-dark:hover {
+            background: #1e293b;
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -289,20 +429,17 @@
         <ul>
             <li><a href="#about">About Me</a></li>
             <li><a href="#activities">Extracurriculars</a></li>
+            <li><a href="#honors">Honors</a></li>
+            <li><a href="#research">Research & Projects</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Header -->
+    <!-- Hero Header with Fade-In Animation -->
     <header id="about">
         <div class="hero-content">
             <h1>Kyrillos Yousef</h1>
             <h3>Rising Senior at STEM High School for Boys - 6th of October</h3>
-            <p>Welcome to my admissions portfolio. Below is an active milestone ledger demonstrating my academic leadership, initiative execution, and progression across core activities.</p>
-            <div class="social-links">
-                <a href="https://github.com/kerlossyousef11-cmyk" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
-            </div>
+            <p>Welcome to my admissions portfolio. Below is a validated register of my academic initiatives, competitive honors, and leadership progression paired with direct verification artifacts.</p>
         </div>
     </header>
 
@@ -339,8 +476,13 @@
 
                             <div class="sub-item">
                                 <div class="sub-date">Jan 2025 - Dec 2025</div>
-                                <div class="sub-role">General Club Member</div>
-                                <div class="sub-desc">Maintained active performance benchmarks and supported foundational club operations across core semesters.</div>
+                                <div class="sub-role">General Member (AP Track)</div>
+                                <div class="sub-desc">
+                                    Participated in advanced college-level foundational chemistry modules. Successfully completed core lab evaluations and comprehensive assignment portfolios.
+                                    <div class="btn-group">
+                                        <a href="#" class="btn"><i class="fas fa-file-pdf"></i> View AP Track Assignment</a>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -363,6 +505,9 @@
                                         <li>Audited formal research paper writing structures and rigorously assessed engineering project proposals.</li>
                                         <li>Guided operational prototype development phases, successfully resulting in all 9 mentees earning A+/A evaluations (placing them in the top 5%).</li>
                                     </ul>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-dark"><i class="fas fa-folder-open"></i> View Mentored Teams' Final Projects</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -394,8 +539,15 @@
 
                             <div class="sub-item">
                                 <div class="sub-date">Jan 2025 - Dec 2025</div>
-                                <div class="sub-role">General Club Member</div>
-                                <div class="sub-desc">Engaged in competitive physics tracks and club training sessions throughout G10.</div>
+                                <div class="sub-role">General Member (General Physics Track)</div>
+                                <div class="sub-desc">
+                                    Mastered fundamental mechanics and electrical systems frameworks. Distinguished performance: Rank inside the **Top 5 students** across three rigorous core tracking assignments.
+                                    <div class="btn-group">
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 1</a>
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 2</a>
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 3</a>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -421,6 +573,105 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Honors & Awards Section with Hover-lifting Cards -->
+        <section id="honors">
+            <h2>Honors & Distinctions</h2>
+            <div class="grid">
+                
+                <!-- Honor 1 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-silver"><i class="fas fa-medal"></i> Silver Medalist</span>
+                        <h3>Biopage Storytelling Writing Contest</h3>
+                        <p>Recognized for distinction in narrative construction and creative prose writing on the international Biopage storytelling platform.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book-open"></i> Read My Story</a>
+                        <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
+                    </div>
+                </div>
+
+                <!-- Honor 2 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-bronze"><i class="fas fa-medal"></i> Bronze Medalist</span>
+                        <h3>International Physics Research (IPhR) Competition</h3>
+                        <p>Awarded Bronze distinction for high structural performance, analytical execution, and problem-solving benchmarks in the selective theoretical evaluation tracks.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Collaborative Research Section -->
+        <section id="research">
+            <h2>Team Research & Project Portfolio</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Overview of 4 core academic and technical research projects completed as an active team contributor. Use the resource links to view full portfolios, display posters, and structural A4 layouts.</p>
+            
+            <div class="grid">
+                
+                <!-- Project 1 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project I</span>
+                        <h3>Research Project Title I</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project II</span>
+                        <h3>Research Project Title II</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project III</span>
+                        <h3>Research Project Title III</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project IV</span>
+                        <h3>Research Project Title IV</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
                     </div>
                 </div>
 
