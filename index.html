@@ -13,7 +13,7 @@
             --text-muted: #4b5563;
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         html {
@@ -33,92 +33,51 @@
             line-height: 1.6;
         }
 
-        /* --- STICKY HEADER & SCROLL ANIMATION CONCEPT --- */
-        
-        /* The container holds both the Navbar and the interactive Profile Area */
-        .sticky-header-container {
-            position: sticky;
-            top: -140px; /* Aligns perfectly to hide large header padding but keep the bar stuck */
-            z-index: 100;
-            background: var(--card-bg);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: var(--transition-smooth);
-        }
-
-        /* Pure CSS Scroll Context Wrapper */
-        .header-banner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 5% 2rem;
-            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-            position: relative;
-        }
-
-        /* Profile image structure using CSS properties to handle scaling implicitly */
-        .profile-box {
-            width: 140px;
-            height: 140px;
-            margin-bottom: 1rem;
-            position: sticky;
-            top: 10px; /* Dynamic stop point when scrolling up */
-            z-index: 102;
-            transition: var(--transition-smooth);
-            transform-origin: left center;
-        }
-
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #ffffff;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-            background-color: #cbd5e1;
-        }
-
-        .hero-text-block {
-            text-align: center;
-        }
-
-        .hero-text-block h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-
-        .hero-text-block h3 {
-            font-size: 1.25rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .hero-text-block p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        /* Fixed Navigation Menu bar directly beneath or interacting with header elements */
+        /* --- STICKY NAVBAR WITH DOCKING AVATAR --- */
         nav {
+            background: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
-            border-top: 1px solid #f1f5f9;
-            background: var(--card-bg);
+            transition: var(--transition-smooth);
         }
 
-        .logo-area {
+        /* Brand layout holding both the text name and the dynamic scrolling avatar */
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        /* The mini navbar photo starts hidden, scaled down, and completely compact */
+        .nav-avatar {
+            width: 0;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(0.5);
+            border: 2px solid var(--primary);
+            transition: width 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+        }
+
+        /* When user scrolls down, reveal the navbar photo gracefully next to your name */
+        nav.scrolled .nav-avatar {
+            width: 32px;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        nav .logo {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         nav ul {
@@ -148,16 +107,62 @@
         }
         nav a:hover::after { width: 100%; }
 
-        /* --- MAIN CONTENT & CONTAINERS --- */
+        /* --- HERO HEADER SECTION --- */
+        header {
+            padding: 5rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+        }
+
+        /* Big Centered Main Profile Photo Container */
+        .main-profile-wrapper {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .main-profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            background-color: #cbd5e1;
+        }
+
+        .hero-content h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .hero-content h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* --- MAIN PORTFOLIO LAYOUT --- */
         main {
             max-width: 1000px;
-            margin: 4rem auto 0;
-            padding: 2rem 5%;
+            margin: 0 auto;
+            padding: 4rem 5%;
         }
 
         section {
             margin-bottom: 5rem;
-            scroll-margin-top: 12rem; /* Keeps titles perfectly visible when skipping through links */
+            scroll-margin-top: 6rem;
         }
 
         h2 {
@@ -291,7 +296,7 @@
         .sub-desc ul { padding-left: 1.25rem; margin-top: 0.25rem; }
         .sub-desc li { margin-bottom: 0.25rem; }
 
-        /* Grid Layouts for Honors and Technical Projects */
+        /* Card Frameworks */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -338,7 +343,7 @@
         .badge-bronze { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
         .badge-project { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 
-        /* Portfolio Action Links */
+        /* Document Action Links */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -380,52 +385,51 @@
             margin-top: 4rem;
         }
 
-        /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
-            .sticky-header-container { position: relative; top: 0; }
-            .header-banner { padding: 3rem 5% 2rem; }
-            .hero-text-block h1 { font-size: 2rem; }
             nav { flex-direction: column; gap: 1rem; text-align: center; }
+            header { padding: 4rem 5% 3rem; }
+            .hero-content h1 { font-size: 2.25rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Header Container -->
-    <div class="sticky-header-container">
-        <!-- Main Banner Content -->
-        <div class="header-banner">
-            <div class="profile-box">
-                <!-- Change "your-photo.jpg" to match your file format -->
-                <img src="your-photo.jpg" alt="Kyrillos Yousef" class="profile-pic">
-            </div>
-            <div class="hero-text-block">
-                <h1>Kyrillos Yousef</h1>
-                <h3>Rising Senior at STEM High School for Boys - 6th of October</h3>
-                <p>Welcome to my admissions portfolio. Below is a validated register of my academic initiatives, competitive honors, and leadership progression paired with direct verification artifacts.</p>
-            </div>
+    <!-- Sticky Navbar Area -->
+    <nav id="navbar">
+        <a href="#about" class="brand-link">
+            <!-- Left Side Corner Target Photo: Automatically fills dynamically -->
+            <img src="your-photo.jpg" alt="Kyrillos Yousef" class="nav-avatar">
+            <div class="logo">Kyrillos Yousef</div>
+        </a>
+        <ul>
+            <li><a href="#activities">Extracurriculars</a></li>
+            <li><a href="#honors">Honors</a></li>
+            <li><a href="#research">Research & Projects</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Hero Section Header -->
+    <header id="about">
+        <!-- Centralized Large Profile Picture Placeholder -->
+        <div class="main-profile-wrapper">
+            <img src="your-photo.jpg" alt="Kyrillos Yousef" class="main-profile-pic">
         </div>
+        <div class="hero-content">
+            <h1>Kyrillos Yousef</h1>
+            <h3>Rising Senior at STEM High School for Boys - 6th of October</h3>
+            <p>Welcome to my admissions portfolio. Below is a validated register of my academic initiatives, competitive honors, and leadership progression paired with direct verification artifacts.</p>
+        </div>
+    </header>
 
-        <!-- Attached Interactive Navbar -->
-        <nav>
-            <div class="logo-area">Kyrillos Yousef</div>
-            <ul>
-                <li><a href="#activities">Extracurriculars</a></li>
-                <li><a href="#honors">Honors</a></li>
-                <li><a href="#research">Research & Projects</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <!-- Main Content Frame -->
+    <!-- Content Sections Container -->
     <main>
 
-        <!-- Extracurriculars Timeline Section -->
+        <!-- Activities Section -->
         <section id="activities">
             <h2>Extracurricular Leadership & Growth</h2>
             <div class="timeline">
                 
-                <!-- Activity 3: Chemistry Club -->
+                <!-- Chemistry Club -->
                 <div class="timeline-item">
                     <div class="timeline-date">Jan 2025 - Present</div>
                     <div class="timeline-title">Chemistry Club</div>
@@ -433,7 +437,6 @@
                     
                     <div class="progression-container">
                         <div class="sub-timeline">
-                            
                             <div class="sub-item active">
                                 <div class="sub-date">Jan 2026 - Present</div>
                                 <div class="sub-role">Vice President</div>
@@ -446,7 +449,6 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="sub-item">
                                 <div class="sub-date">Jan 2025 - Dec 2025</div>
                                 <div class="sub-role">General Member (AP Track)</div>
@@ -457,12 +459,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-                <!-- Activity 4: Capstone Research Assistant -->
+                <!-- Capstone Research Framework -->
                 <div class="timeline-item">
                     <div class="timeline-date">Academic Term Focus</div>
                     <div class="timeline-title">Capstone Research Framework</div>
@@ -487,76 +488,13 @@
                     </div>
                 </div>
 
-                <!-- Activity 5: Physics Club -->
-                <div class="timeline-item">
-                    <div class="timeline-date">Jan 2025 - Present</div>
-                    <div class="timeline-title">Physics Club & Mentorship Network</div>
-                    <div class="timeline-type">Academic</div>
-                    
-                    <div class="progression-container">
-                        <div class="sub-timeline">
-                            
-                            <div class="sub-item active">
-                                <div class="sub-date">Jan 2026 - Present</div>
-                                <div class="sub-role">Physics Mentor (G11)</div>
-                                <div class="sub-desc">
-                                    <ul>
-                                        <li>Mentored and instructed a large cohort of 80+ Grade 10 peers to strengthen foundational physics intuition.</li>
-                                        <li>Developed 10+ comprehensive physical conceptual handouts and study frameworks.</li>
-                                        <li>Co-authored the official IPhR competitive examinations and accompanying syllabus assignments.</li>
-                                        <li>Served as an authorized proctor for both the main competition stages and school final exams.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="sub-item">
-                                <div class="sub-date">Jan 2025 - Dec 2025</div>
-                                <div class="sub-role">General Member (General Physics Track)</div>
-                                <div class="sub-desc">
-                                    Mastered fundamental mechanics and electrical systems frameworks. Distinguished performance: Rank inside the **Top 5 students** across three rigorous core tracking assignments.
-                                    <div class="btn-group">
-                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 1</a>
-                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 2</a>
-                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 3</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Activity 6: Art Committee -->
-                <div class="timeline-item">
-                    <div class="timeline-date">Grade 10 - Grade 11</div>
-                    <div class="timeline-title">School Art Committee</div>
-                    <div class="timeline-type">Art</div>
-                    
-                    <div class="progression-container">
-                        <div class="sub-timeline">
-                            <div class="sub-item active">
-                                <div class="sub-role">Head of Art Committee (G10 & G11)</div>
-                                <div class="sub-desc">
-                                    <ul>
-                                        <li>Elected democratically to leadership position among a competitive pool of 25 student artists.</li>
-                                        <li>Chaired the school's central art committee, organizing design deadlines and student creative collaborations.</li>
-                                        <li>Personally crafted 6+ professional graphic poster designs for major school-wide administrative events.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- Honors & Awards Section -->
+        <!-- Honors Section -->
         <section id="honors">
             <h2>Honors & Distinctions</h2>
             <div class="grid">
-                
-                <!-- Honor 1 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-silver"><i class="fas fa-medal"></i> Silver Medalist</span>
@@ -565,11 +503,8 @@
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book-open"></i> Read My Story</a>
-                        <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
                     </div>
                 </div>
-
-                <!-- Honor 2 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-bronze"><i class="fas fa-medal"></i> Bronze Medalist</span>
@@ -580,73 +515,35 @@
                         <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Collaborative Research Section -->
+        <!-- Technical Projects Section -->
         <section id="research">
             <h2>Team Research & Project Portfolio</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">Overview of 4 core academic and technical research projects completed as an active team contributor. Use the resource links to view full portfolios, display posters, and structural A4 layouts.</p>
-            
             <div class="grid">
-                
-                <!-- Project 1 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-project">Project I</span>
                         <h3>Research Project Title I</h3>
-                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                        <p>Brief description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
                         <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
-                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
                     </div>
                 </div>
-
-                <!-- Project 2 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-project">Project II</span>
                         <h3>Research Project Title II</h3>
-                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                        <p>Brief description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
                         <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
-                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
                     </div>
                 </div>
-
-                <!-- Project 3 -->
-                <div class="card">
-                    <div class="card-body">
-                        <span class="badge badge-project">Project III</span>
-                        <h3>Research Project Title III</h3>
-                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
-                    </div>
-                    <div class="btn-group">
-                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
-                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
-                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="card">
-                    <div class="card-body">
-                        <span class="badge badge-project">Project IV</span>
-                        <h3>Research Project Title IV</h3>
-                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
-                    </div>
-                    <div class="btn-group">
-                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
-                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
-                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
-                    </div>
-                </div>
-
             </div>
         </section>
 
@@ -656,14 +553,16 @@
         <p>&copy; 2026 Kyrillos Yousef. Tailored for US Undergraduate Admissions.</p>
     </footer>
 
-    <!-- CSS Scroll State Assist Handler -->
+    <!-- Interactive Navigation Animation Handler -->
     <script>
-        const container = document.querySelector('.sticky-header-container');
+        const navbar = document.getElementById('navbar');
+        
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 140) {
-                container.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+            // Once the user scrolls past the main picture height (~160px), dock the mini avatar inside navbar
+            if (window.scrollY > 160) {
+                navbar.classList.add('scrolled');
             } else {
-                container.style.boxShadow = "0 1px 3px rgba(0,0,0,0.05)";
+                navbar.classList.remove('scrolled');
             }
         });
     </script>
