@@ -13,10 +13,9 @@
             --text-muted: #4b5563;
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Smooth scrolling setup */
         html {
             scroll-behavior: smooth;
         }
@@ -32,26 +31,94 @@
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
-            background: var(--card-bg);
+        /* --- STICKY HEADER & SCROLL ANIMATION CONCEPT --- */
+        
+        /* The container holds both the Navbar and the interactive Profile Area */
+        .sticky-header-container {
             position: sticky;
-            top: 0;
+            top: -140px; /* Aligns perfectly to hide large header padding but keep the bar stuck */
             z-index: 100;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: var(--transition-smooth);
+        }
+
+        /* Pure CSS Scroll Context Wrapper */
+        .header-banner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 5% 2rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            position: relative;
+        }
+
+        /* Profile image structure using CSS properties to handle scaling implicitly */
+        .profile-box {
+            width: 140px;
+            height: 140px;
+            margin-bottom: 1rem;
+            position: sticky;
+            top: 10px; /* Dynamic stop point when scrolling up */
+            z-index: 102;
+            transition: var(--transition-smooth);
+            transform-origin: left center;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            background-color: #cbd5e1;
+        }
+
+        .hero-text-block {
+            text-align: center;
+        }
+
+        .hero-text-block h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .hero-text-block h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-block p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Fixed Navigation Menu bar directly beneath or interacting with header elements */
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
+            border-top: 1px solid #f1f5f9;
+            background: var(--card-bg);
         }
 
-        nav .logo {
+        .logo-area {
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         nav ul {
@@ -68,11 +135,7 @@
             position: relative;
         }
 
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        /* Hover underline effect for navigation */
+        nav a:hover { color: var(--primary); }
         nav a::after {
             content: '';
             position: absolute;
@@ -83,60 +146,18 @@
             background-color: var(--primary);
             transition: var(--transition-smooth);
         }
-        nav a:hover::after {
-            width: 100%;
-        }
+        nav a:hover::after { width: 100%; }
 
-        /* Keyframe for Hero Entrance */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Hero Section Animation */
-        header {
-            padding: 5rem 5% 4rem;
-            text-align: center;
-            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .hero-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #0f172a;
-        }
-
-        .hero-content h3 {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto 1.5rem;
-        }
-
-        /* Main Container */
+        /* --- MAIN CONTENT & CONTAINERS --- */
         main {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 4rem auto 0;
             padding: 2rem 5%;
         }
 
         section {
             margin-bottom: 5rem;
-            scroll-margin-top: 5rem;
+            scroll-margin-top: 12rem; /* Keeps titles perfectly visible when skipping through links */
         }
 
         h2 {
@@ -158,7 +179,7 @@
             border-radius: 2px;
         }
 
-        /* Main Timeline */
+        /* Timeline Graphics */
         .timeline {
             position: relative;
             border-left: 3px solid #e2e8f0;
@@ -169,7 +190,6 @@
         .timeline-item {
             position: relative;
             margin-bottom: 4rem;
-            transition: var(--transition-smooth);
         }
 
         .timeline-item::before {
@@ -186,7 +206,6 @@
             transition: var(--transition-smooth);
         }
 
-        /* Active micro-interaction when viewing timeline nodes */
         .timeline-item:hover::before {
             transform: scale(1.3);
             background: var(--primary-dark);
@@ -219,7 +238,6 @@
             text-transform: uppercase;
         }
 
-        /* Inner Role Progression Timeline */
         .progression-container {
             margin-top: 1rem;
             background: #ffffff;
@@ -230,20 +248,10 @@
             transition: var(--transition-smooth);
         }
 
-        /* Subtle container shift on hover */
         .timeline-item:hover .progression-container {
             transform: translateX(4px);
             border-color: #cbd5e1;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-        }
-
-        .progression-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 0.85rem;
-            letter-spacing: 0.05em;
         }
 
         .sub-timeline {
@@ -258,9 +266,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .sub-item:last-child {
-            margin-bottom: 0;
-        }
+        .sub-item:last-child { margin-bottom: 0; }
 
         .sub-item::before {
             content: '';
@@ -279,34 +285,13 @@
             box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
-        .sub-date {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #64748b;
-        }
+        .sub-date { font-size: 0.8rem; font-weight: 700; color: #64748b; }
+        .sub-role { font-size: 1rem; font-weight: 700; color: #0f172a; }
+        .sub-desc { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.35rem; }
+        .sub-desc ul { padding-left: 1.25rem; margin-top: 0.25rem; }
+        .sub-desc li { margin-bottom: 0.25rem; }
 
-        .sub-role {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .sub-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-top: 0.35rem;
-        }
-
-        .sub-desc ul {
-            padding-left: 1.25rem;
-            margin-top: 0.25rem;
-        }
-
-        .sub-desc li {
-            margin-bottom: 0.25rem;
-        }
-
-        /* Grid Framework for Projects and Honors */
+        /* Grid Layouts for Honors and Technical Projects */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -317,7 +302,6 @@
             .grid { grid-template-columns: 1fr; }
         }
 
-        /* Interactive Animated Cards */
         .card {
             background: var(--card-bg);
             border-radius: 8px;
@@ -330,24 +314,14 @@
             transition: var(--transition-smooth);
         }
 
-        /* Lift and Drop-Shadow card animation on hover */
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
             border-color: #bfdbfe;
         }
 
-        .card-body h3 {
-            font-size: 1.25rem;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-body p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.25rem;
-        }
+        .card-body h3 { font-size: 1.25rem; color: #0f172a; margin-bottom: 0.5rem; }
+        .card-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
 
         .badge {
             display: inline-block;
@@ -364,7 +338,7 @@
         .badge-bronze { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
         .badge-project { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 
-        /* Evidence Links and Buttons */
+        /* Portfolio Action Links */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -387,7 +361,6 @@
             transition: var(--transition-smooth);
         }
 
-        /* Interactive Button Pop on hover */
         .btn:hover {
             background: var(--primary);
             color: #ffffff;
@@ -395,15 +368,8 @@
             transform: scale(1.03);
         }
 
-        .btn-dark {
-            background: #0f172a;
-            color: #ffffff;
-            border-color: #0f172a;
-        }
-
-        .btn-dark:hover {
-            background: #1e293b;
-        }
+        .btn-dark { background: #0f172a; color: #ffffff; border-color: #0f172a; }
+        .btn-dark:hover { background: #1e293b; }
 
         footer {
             text-align: center;
@@ -414,36 +380,44 @@
             margin-top: 4rem;
         }
 
+        /* Responsive Mobile Layout Adjustments */
         @media (max-width: 768px) {
+            .sticky-header-container { position: relative; top: 0; }
+            .header-banner { padding: 3rem 5% 2rem; }
+            .hero-text-block h1 { font-size: 2rem; }
             nav { flex-direction: column; gap: 1rem; text-align: center; }
-            header { padding: 3rem 5% 2rem; }
-            .hero-content h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav>
-        <div class="logo">Kyrillos Yousef</div>
-        <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#activities">Extracurriculars</a></li>
-            <li><a href="#honors">Honors</a></li>
-            <li><a href="#research">Research & Projects</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Header with Fade-In Animation -->
-    <header id="about">
-        <div class="hero-content">
-            <h1>Kyrillos Yousef</h1>
-            <h3>Rising Senior at STEM High School for Boys - 6th of October</h3>
-            <p>Welcome to my admissions portfolio. Below is a validated register of my academic initiatives, competitive honors, and leadership progression paired with direct verification artifacts.</p>
+    <!-- Dynamic Header Container -->
+    <div class="sticky-header-container">
+        <!-- Main Banner Content -->
+        <div class="header-banner">
+            <div class="profile-box">
+                <!-- Change "your-photo.jpg" to match your file format -->
+                <img src="your-photo.jpg" alt="Kyrillos Yousef" class="profile-pic">
+            </div>
+            <div class="hero-text-block">
+                <h1>Kyrillos Yousef</h1>
+                <h3>Rising Senior at STEM High School for Boys - 6th of October</h3>
+                <p>Welcome to my admissions portfolio. Below is a validated register of my academic initiatives, competitive honors, and leadership progression paired with direct verification artifacts.</p>
+            </div>
         </div>
-    </header>
 
-    <!-- Main Content -->
+        <!-- Attached Interactive Navbar -->
+        <nav>
+            <div class="logo-area">Kyrillos Yousef</div>
+            <ul>
+                <li><a href="#activities">Extracurriculars</a></li>
+                <li><a href="#honors">Honors</a></li>
+                <li><a href="#research">Research & Projects</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content Frame -->
     <main>
 
         <!-- Extracurriculars Timeline Section -->
@@ -458,7 +432,6 @@
                     <div class="timeline-type">Academic</div>
                     
                     <div class="progression-container">
-                        <div class="progression-title">Role Progression Timeline</div>
                         <div class="sub-timeline">
                             
                             <div class="sub-item active">
@@ -521,7 +494,6 @@
                     <div class="timeline-type">Academic</div>
                     
                     <div class="progression-container">
-                        <div class="progression-title">Role Progression Timeline</div>
                         <div class="sub-timeline">
                             
                             <div class="sub-item active">
@@ -579,7 +551,7 @@
             </div>
         </section>
 
-        <!-- Honors & Awards Section with Hover-lifting Cards -->
+        <!-- Honors & Awards Section -->
         <section id="honors">
             <h2>Honors & Distinctions</h2>
             <div class="grid">
@@ -684,5 +656,16 @@
         <p>&copy; 2026 Kyrillos Yousef. Tailored for US Undergraduate Admissions.</p>
     </footer>
 
+    <!-- CSS Scroll State Assist Handler -->
+    <script>
+        const container = document.querySelector('.sticky-header-container');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 140) {
+                container.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
+            } else {
+                container.style.boxShadow = "0 1px 3px rgba(0,0,0,0.05)";
+            }
+        });
+    </script>
 </body>
 </html>
