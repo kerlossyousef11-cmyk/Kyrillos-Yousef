@@ -47,7 +47,6 @@
             transition: var(--transition-smooth);
         }
 
-        /* Brand layout holding both the text name and the dynamic scrolling avatar */
         .brand-link {
             display: flex;
             align-items: center;
@@ -55,7 +54,7 @@
             text-decoration: none;
         }
 
-        /* The mini navbar photo starts hidden, scaled down, and completely compact */
+        /* The mini navbar photo starts hidden and scales in when scrolling down */
         .nav-avatar {
             width: 0;
             height: 32px;
@@ -67,7 +66,6 @@
             transition: width 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
         }
 
-        /* When user scrolls down, reveal the navbar photo gracefully next to your name */
         nav.scrolled .nav-avatar {
             width: 32px;
             opacity: 1;
@@ -114,7 +112,6 @@
             background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
         }
 
-        /* Big Centered Main Profile Photo Container */
         .main-profile-wrapper {
             width: 150px;
             height: 150px;
@@ -397,7 +394,6 @@
     <!-- Sticky Navbar Area -->
     <nav id="navbar">
         <a href="#about" class="brand-link">
-            <!-- Left Side Corner Target Photo: Automatically fills dynamically -->
             <img src="your-photo.jpg" alt="Kyrillos Yousef" class="nav-avatar">
             <div class="logo">Kyrillos Yousef</div>
         </a>
@@ -410,7 +406,6 @@
 
     <!-- Main Hero Section Header -->
     <header id="about">
-        <!-- Centralized Large Profile Picture Placeholder -->
         <div class="main-profile-wrapper">
             <img src="your-photo.jpg" alt="Kyrillos Yousef" class="main-profile-pic">
         </div>
@@ -421,15 +416,15 @@
         </div>
     </header>
 
-    <!-- Content Sections Container -->
+    <!-- Main Content Frame -->
     <main>
 
-        <!-- Activities Section -->
+        <!-- RESTORED: All Extracurriculars Timeline Section -->
         <section id="activities">
             <h2>Extracurricular Leadership & Growth</h2>
             <div class="timeline">
                 
-                <!-- Chemistry Club -->
+                <!-- EC 1: Chemistry Club -->
                 <div class="timeline-item">
                     <div class="timeline-date">Jan 2025 - Present</div>
                     <div class="timeline-title">Chemistry Club</div>
@@ -463,7 +458,7 @@
                     </div>
                 </div>
 
-                <!-- Capstone Research Framework -->
+                <!-- EC 2: Capstone Research Framework -->
                 <div class="timeline-item">
                     <div class="timeline-date">Academic Term Focus</div>
                     <div class="timeline-title">Capstone Research Framework</div>
@@ -488,13 +483,73 @@
                     </div>
                 </div>
 
+                <!-- EC 3: Physics Club -->
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2025 - Present</div>
+                    <div class="timeline-title">Physics Club & Mentorship Network</div>
+                    <div class="timeline-type">Academic</div>
+                    
+                    <div class="progression-container">
+                        <div class="sub-timeline">
+                            <div class="sub-item active">
+                                <div class="sub-date">Jan 2026 - Present</div>
+                                <div class="sub-role">Physics Mentor (G11)</div>
+                                <div class="sub-desc">
+                                    <ul>
+                                        <li>Mentored and instructed a large cohort of 80+ Grade 10 peers to strengthen foundational physics intuition.</li>
+                                        <li>Developed 10+ comprehensive physical conceptual handouts and study frameworks.</li>
+                                        <li>Co-authored the official IPhR competitive examinations and accompanying syllabus assignments.</li>
+                                        <li>Served as an authorized proctor for both the main competition stages and school final exams.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sub-item">
+                                <div class="sub-date">Jan 2025 - Dec 2025</div>
+                                <div class="sub-role">General Member (General Physics Track)</div>
+                                <div class="sub-desc">
+                                    Mastered fundamental mechanics and electrical systems frameworks. Distinguished performance: Rank inside the Top 5 students across three rigorous core tracking assignments.
+                                    <div class="btn-group">
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 1</a>
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 2</a>
+                                        <a href="#" class="btn"><i class="fas fa-award"></i> View Assignment 3</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EC 4: Art Committee -->
+                <div class="timeline-item">
+                    <div class="timeline-date">Grade 10 - Grade 11</div>
+                    <div class="timeline-title">School Art Committee</div>
+                    <div class="timeline-type">Art</div>
+                    
+                    <div class="progression-container">
+                        <div class="sub-timeline">
+                            <div class="sub-item active">
+                                <div class="sub-role">Head of Art Committee (G10 & G11)</div>
+                                <div class="sub-desc">
+                                    <ul>
+                                        <li>Elected democratically to leadership position among a competitive pool of 25 student artists.</li>
+                                        <li>Chaired the school's central art committee, organizing design deadlines and student creative collaborations.</li>
+                                        <li>Personally crafted 6+ professional graphic poster designs for major school-wide administrative events.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Honors Section -->
+        <!-- RESTORED: Honors with Certification Button -->
         <section id="honors">
             <h2>Honors & Distinctions</h2>
             <div class="grid">
+                
+                <!-- Honor 1 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-silver"><i class="fas fa-medal"></i> Silver Medalist</span>
@@ -503,8 +558,11 @@
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book-open"></i> Read My Story</a>
+                        <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
                     </div>
                 </div>
+
+                <!-- Honor 2 -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-bronze"><i class="fas fa-medal"></i> Bronze Medalist</span>
@@ -515,35 +573,73 @@
                         <a href="#" class="btn"><i class="fas fa-certificate"></i> View Certification</a>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- Technical Projects Section -->
+        <!-- RESTORED & STANDARDIZED: All 4 Projects with Portfolio, Poster, and A4 layouts -->
         <section id="research">
             <h2>Team Research & Project Portfolio</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Overview of 4 core academic and technical research projects completed as an active team contributor. Use the resource links to view full portfolios, display posters, and structural A4 layouts.</p>
+            
             <div class="grid">
+                
+                <!-- Project I -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-project">Project I</span>
                         <h3>Research Project Title I</h3>
-                        <p>Brief description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
                         <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
                     </div>
                 </div>
+
+                <!-- Project II -->
                 <div class="card">
                     <div class="card-body">
                         <span class="badge badge-project">Project II</span>
                         <h3>Research Project Title II</h3>
-                        <p>Brief description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
                     </div>
                     <div class="btn-group">
                         <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
                         <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
                     </div>
                 </div>
+
+                <!-- Project III -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project III</span>
+                        <h3>Research Project Title III</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
+                    </div>
+                </div>
+
+                <!-- Project IV -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="badge badge-project">Project IV</span>
+                        <h3>Research Project Title IV</h3>
+                        <p>Brief 2-sentence description of the engineering problem solved, methodology used, or the system designed by your team during this project run.</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn"><i class="fas fa-book"></i> Portfolio</a>
+                        <a href="#" class="btn"><i class="fas fa-image"></i> Poster</a>
+                        <a href="#" class="btn"><i class="fas fa-file-alt"></i> A4 Poster</a>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -553,12 +649,10 @@
         <p>&copy; 2026 Kyrillos Yousef. Tailored for US Undergraduate Admissions.</p>
     </footer>
 
-    <!-- Interactive Navigation Animation Handler -->
+    <!-- Dynamic Scroll Class Trigger for Avatar Shrink Effect -->
     <script>
         const navbar = document.getElementById('navbar');
-        
         window.addEventListener('scroll', () => {
-            // Once the user scrolls past the main picture height (~160px), dock the mini avatar inside navbar
             if (window.scrollY > 160) {
                 navbar.classList.add('scrolled');
             } else {
