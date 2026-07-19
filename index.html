@@ -9,11 +9,12 @@
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
-            --text-main: #1f2937;
-            --text-muted: #4b5563;
+            --primary-light: rgba(37, 99, 235, 0.1);
+            --text-main: #0f172a;
+            --text-muted: #475569;
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         html {
@@ -31,20 +32,24 @@
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* --- STICKY NAVBAR WITH DOCKING AVATAR --- */
         nav {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
             transition: var(--transition-smooth);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         .brand-link {
@@ -54,7 +59,6 @@
             text-decoration: none;
         }
 
-        /* The mini navbar photo starts hidden and scales in when scrolling down */
         .nav-avatar {
             width: 0;
             height: 32px;
@@ -76,6 +80,7 @@
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--primary);
+            letter-spacing: -0.025em;
         }
 
         nav ul {
@@ -90,6 +95,7 @@
             font-weight: 500;
             transition: var(--transition-smooth);
             position: relative;
+            font-size: 0.95rem;
         }
 
         nav a:hover { color: var(--primary); }
@@ -107,16 +113,17 @@
 
         /* --- HERO HEADER SECTION --- */
         header {
-            padding: 5rem 5% 4rem;
+            padding: 7rem 5% 5rem;
             text-align: center;
-            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            background: radial-gradient(circle at top, #f0f7ff 0%, #ffffff 70%);
+            position: relative;
         }
 
         .main-profile-wrapper {
             width: 150px;
             height: 150px;
             margin: 0 auto 1.5rem;
-            transition: var(--transition-smooth);
+            position: relative;
         }
 
         .main-profile-pic {
@@ -125,26 +132,28 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #ffffff;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             background-color: #cbd5e1;
         }
 
         .hero-content h1 {
-            font-size: 2.75rem;
-            margin-bottom: 1rem;
+            font-size: 3.25rem;
+            margin-bottom: 0.5rem;
             color: #0f172a;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: -0.04em;
         }
 
         .hero-content h3 {
             font-size: 1.25rem;
             color: var(--primary);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
             font-weight: 600;
+            letter-spacing: -0.01em;
         }
 
         .hero-content p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
             max-width: 650px;
             margin: 0 auto;
@@ -152,22 +161,23 @@
 
         /* --- MAIN PORTFOLIO LAYOUT --- */
         main {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto;
-            padding: 4rem 5%;
+            padding: 2rem 5% 6rem;
         }
 
         section {
-            margin-bottom: 5rem;
+            margin-bottom: 7rem;
             scroll-margin-top: 6rem;
         }
 
         h2 {
-            font-size: 1.75rem;
-            margin-bottom: 2rem;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
             position: relative;
             padding-bottom: 0.5rem;
             color: #0f172a;
+            letter-spacing: -0.03em;
         }
 
         h2::after {
@@ -175,97 +185,117 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 50px;
+            width: 60px;
             height: 4px;
             background-color: var(--primary);
             border-radius: 2px;
         }
 
-        /* Timeline Graphics */
+        /* --- TIMELINE ANIMATED EFFECTS --- */
         .timeline {
             position: relative;
             border-left: 3px solid #e2e8f0;
-            padding-left: 2rem;
+            padding-left: 2.5rem;
             margin-left: 1rem;
+        }
+
+        /* SCROLL ANIMATION INITIAL STATES */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        /* ACTIVE CLASS APPLIED BY JS */
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: calc(-2rem - 9px);
+            left: calc(-2.5rem - 9px);
             top: 6px;
             width: 15px;
             height: 15px;
             border-radius: 50%;
-            background: var(--primary);
+            background: #cbd5e1;
             border: 3px solid #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-            transition: var(--transition-smooth);
+            box-shadow: 0 0 0 3px transparent;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .timeline-item:hover::before {
-            transform: scale(1.3);
-            background: var(--primary-dark);
+        /* Dynamic dot illumination on scroll reveal */
+        .timeline-item.active::before {
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+            transform: scale(1.2);
         }
 
         .timeline-date {
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--primary);
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             margin-bottom: 0.25rem;
         }
 
         .timeline-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
             color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .timeline-type {
             display: inline-block;
             background: #f1f5f9;
             color: #475569;
-            padding: 0.15rem 0.6rem;
-            border-radius: 4px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
 
         .progression-container {
             margin-top: 1rem;
-            background: #ffffff;
-            border-radius: 6px;
-            padding: 1.25rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01), 0 2px 4px -1px rgba(0,0,0,0.01);
             transition: var(--transition-smooth);
         }
 
         .timeline-item:hover .progression-container {
-            transform: translateX(4px);
+            transform: translateX(6px);
             border-color: #cbd5e1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.04);
         }
 
         .sub-timeline {
             position: relative;
             border-left: 2px dashed #cbd5e1;
-            padding-left: 1.5rem;
+            padding-left: 1.75rem;
             margin-left: 0.5rem;
         }
 
         .sub-item {
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .sub-item:last-child { margin-bottom: 0; }
@@ -273,42 +303,46 @@
         .sub-item::before {
             content: '';
             position: absolute;
-            left: calc(-1.5rem - 5px);
-            top: 5px;
+            left: calc(-1.75rem - 5px);
+            top: 6px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #94a3b8;
+            background: #cbd5e1;
             border: 2px solid #fff;
+            transition: var(--transition-smooth);
         }
 
         .sub-item.active::before {
             background: var(--primary);
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+            transform: scale(1.2);
         }
 
         .sub-date { font-size: 0.8rem; font-weight: 700; color: #64748b; }
-        .sub-role { font-size: 1rem; font-weight: 700; color: #0f172a; }
-        .sub-desc { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.35rem; }
-        .sub-desc ul { padding-left: 1.25rem; margin-top: 0.25rem; }
-        .sub-desc li { margin-bottom: 0.25rem; }
+        .sub-role { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-top: 0.1rem;}
+        .sub-desc { font-size: 0.98rem; color: var(--text-muted); margin-top: 0.5rem; }
+        .sub-desc ul { padding-left: 1.25rem; margin-top: 0.5rem; }
+        .sub-desc li { margin-bottom: 0.5rem; }
+        .sub-desc li strong { color: #0f172a; }
 
-        /* Card Frameworks */
+        /* --- CARDS PANELS --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
+            gap: 1.75rem;
         }
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
+            .timeline { padding-left: 1.5rem; margin-left: 0.2rem; }
+            .timeline-item::before { left: calc(-1.5rem - 9px); }
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.02);
             border: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
@@ -317,75 +351,80 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
             border-color: #bfdbfe;
         }
 
-        .card-body h3 { font-size: 1.25rem; color: #0f172a; margin-bottom: 0.5rem; }
-        .card-body p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .card-body h3 { font-size: 1.35rem; color: #0f172a; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        .card-body p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.5rem; }
 
         .badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
             font-size: 0.75rem;
             font-weight: 700;
-            border-radius: 4px;
+            border-radius: 6px;
             text-transform: uppercase;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             width: fit-content;
+            letter-spacing: 0.03em;
         }
 
-        .badge-silver { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+        .badge-silver { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
         .badge-bronze { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
         .badge-project { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 
-        /* Document Action Links */
+        /* --- BUTTONS & ACTIONS --- */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
-            background: #eff6ff;
-            color: var(--primary);
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
+            gap: 0.4rem;
+            background: #f1f5f9;
+            color: #334155;
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.825rem;
             font-weight: 600;
             text-decoration: none;
-            border: 1px solid #bfdbfe;
+            border: 1px solid #e2e8f0;
             transition: var(--transition-smooth);
         }
 
         .btn:hover {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-            transform: scale(1.03);
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: #bfdbfe;
+            transform: translateY(-1px);
         }
 
         .btn-dark { background: #0f172a; color: #ffffff; border-color: #0f172a; }
-        .btn-dark:hover { background: #1e293b; }
+        .btn-dark:hover { background: #1e293b; color: #ffffff; }
 
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             background: #0f172a;
             color: #94a3b8;
-            font-size: 0.9rem;
-            margin-top: 4rem;
+            font-size: 0.95rem;
+            margin-top: 6rem;
+            border-top: 1px solid #1e293b;
         }
 
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 1rem; text-align: center; }
-            header { padding: 4rem 5% 3rem; }
-            .hero-content h1 { font-size: 2.25rem; }
+            nav { flex-direction: column; gap: 1rem; text-align: center; padding: 1.25rem 5%; }
+            nav ul { gap: 1.25rem; }
+            header { padding: 5rem 5% 3.5rem; }
+            .hero-content h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -425,7 +464,7 @@
             <div class="timeline">
 
                 <!-- EC 1: ChemX -->
-                <div class="timeline-item">
+                <div class="timeline-item reveal-on-scroll">
                     <div class="timeline-date">Jun 2025 - Present</div>
                     <div class="timeline-title">International Chemistry Challenge: ChemX</div>
                     <div class="timeline-type">Academic & Leadership</div>
@@ -449,7 +488,7 @@
                 </div>
                 
                 <!-- EC 2: Chemistry Club -->
-                <div class="timeline-item">
+                <div class="timeline-item reveal-on-scroll">
                     <div class="timeline-date">Jan 2025 - Present</div>
                     <div class="timeline-title">Chemistry Club</div>
                     <div class="timeline-type">Academic</div>
@@ -483,7 +522,7 @@
                 </div>
 
                 <!-- EC 3: Capstone Research Framework -->
-                <div class="timeline-item">
+                <div class="timeline-item reveal-on-scroll">
                     <div class="timeline-date">Academic Term Focus</div>
                     <div class="timeline-title">Capstone Research Framework</div>
                     <div class="timeline-type">Academic</div>
@@ -508,7 +547,7 @@
                 </div>
 
                 <!-- EC 4: Physics Club -->
-                <div class="timeline-item">
+                <div class="timeline-item reveal-on-scroll">
                     <div class="timeline-date">Jan 2025 - Present</div>
                     <div class="timeline-title">Physics Club & Mentorship Network</div>
                     <div class="timeline-type">Academic</div>
@@ -544,7 +583,7 @@
                 </div>
 
                 <!-- EC 5: Art Committee -->
-                <div class="timeline-item">
+                <div class="timeline-item reveal-on-scroll">
                     <div class="timeline-date">Grade 10 - Grade 11</div>
                     <div class="timeline-title">School Art Committee</div>
                     <div class="timeline-type">Art</div>
@@ -574,7 +613,7 @@
             <div class="grid">
                 
                 <!-- Honor 1 -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-silver"><i class="fas fa-medal"></i> Silver Medalist</span>
                         <h3>Biopage Storytelling Writing Contest</h3>
@@ -587,7 +626,7 @@
                 </div>
 
                 <!-- Honor 2 -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-bronze"><i class="fas fa-medal"></i> Bronze Medalist</span>
                         <h3>International Physics Research (IPhR) Competition</h3>
@@ -604,12 +643,12 @@
         <!-- Research Section -->
         <section id="research">
             <h2>Team Research & Project Portfolio</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">Overview of 4 core academic and technical research projects completed as an active team contributor. Use the resource links to view full portfolios, display posters, and structural A4 layouts.</p>
+            <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Overview of 4 core academic and technical research projects completed as an active team contributor. Use the resource links to view full portfolios, display posters, and structural A4 layouts.</p>
             
             <div class="grid">
                 
                 <!-- Project I -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-project">Project I</span>
                         <h3>Research Project Title I</h3>
@@ -623,7 +662,7 @@
                 </div>
 
                 <!-- Project II -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-project">Project II</span>
                         <h3>Research Project Title II</h3>
@@ -637,7 +676,7 @@
                 </div>
 
                 <!-- Project III -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-project">Project III</span>
                         <h3>Research Project Title III</h3>
@@ -651,7 +690,7 @@
                 </div>
 
                 <!-- Project IV -->
-                <div class="card">
+                <div class="card reveal-on-scroll">
                     <div class="card-body">
                         <span class="badge badge-project">Project IV</span>
                         <h3>FloraByte</h3>
@@ -672,15 +711,38 @@
         <p>&copy; 2026 Kyrillos Yousef. Tailored for US Undergraduate Admissions.</p>
     </footer>
 
-    <!-- Dynamic Scroll Class Trigger for Avatar Shrink Effect -->
+    <!-- INTERACTIVE SCROLL ANIMATIONS DISPATCHER -->
     <script>
+        // Navbar scroll behavior
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 160) {
+            if (window.scrollY > 120) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+        });
+
+        // Intersection Observer for scroll reveal animations
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        
+        const revealOptions = {
+            threshold: 0.12, // Element will trigger when 12% visible in screen viewport
+            rootMargin: "0px 0px -20px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Stop observing once revealed to maintain high layout optimization performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
         });
     </script>
 </body>
